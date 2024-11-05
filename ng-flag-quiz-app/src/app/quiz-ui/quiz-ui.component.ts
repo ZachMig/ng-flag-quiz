@@ -63,6 +63,22 @@ export class QuizUIComponent {
   // Advance the game from answer reveal, to the next flag to guess ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // Arrow function notation so it preserves context from this class
   handleGameAdvance = (event: MouseEvent) => {
+    console.log(event.target);
+
+    // Don't trigger if menu is currently open
+    const menuOverlay = document.getElementById('menu-overlay-id');
+    if (menuOverlay) {
+      return;
+    }
+
+    // Don't trigger if we are opening or closing the menu
+    if (
+      event.target === document.getElementById('burger-icon-id') ||
+      event.target === document.getElementById('menu-div')
+    ) {
+      return;
+    }
+
     event.stopImmediatePropagation();
     event.stopPropagation();
     console.log('Advancing round');
@@ -125,10 +141,10 @@ export class QuizUIComponent {
     this.numChoices = Math.min(12, this.selectedCountryCodes.length);
     this.countryCodeToShow = this.selectedCountryCodes[this.countryCodeIndex];
     this.generateOptions();
-    // console.log(this.options.length);
   }
 
   ngOnChanges() {
+    document.removeEventListener('mousedown', this.handleGameAdvance, true);
     this.numChoices = Math.min(12, this.selectedCountryCodes.length);
     this.countryCodeIndex = 0;
     this.countryCodeToShow = this.selectedCountryCodes[this.countryCodeIndex];

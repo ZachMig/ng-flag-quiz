@@ -6,7 +6,15 @@
   align-items: center;
 }
 
-.burger-box {
+.burger-icon {
+  position: absolute;
+  top: 5em;
+  left: 5em;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* .burger-box {
   position: absolute;
   top: 5em;
   left: 5em;
@@ -19,7 +27,7 @@
   height: 5px;
   background-color: black;
   margin: 6px 0;
-}
+} */
 
 .menu-modal-background {
   position: absolute;

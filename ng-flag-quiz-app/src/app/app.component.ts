@@ -81,14 +81,22 @@ export class AppComponent {
   handleKeyDown = (keyEvent: KeyboardEvent) => {
     keyEvent.preventDefault();
 
-    if (keyEvent.key === 'escape') {
-      this.handleMenuToggle();
+    if (keyEvent.key === 'Escape') {
+      if (!this.gameInProgress) {
+        console.log('Attempted to close menu without game in progress.');
+        return;
+      }
+
+      this.menuOpen = !this.menuOpen;
     }
   };
 
   // Toggle Menu Overlay ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // Arrow function notation so it preserves context from this class
-  handleMenuToggle = () => {
+  handleMenuToggle = (event: MouseEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+
     if (!this.gameInProgress) {
       console.log('Attempted to close menu without game in progress.');
       return;
@@ -109,16 +117,6 @@ export class AppComponent {
     }
 
     this.activePresets.set(preset, !isActive); // Toggle
-
-    console.log(
-      'Just set ' +
-        preset +
-        ' to ' +
-        !isActive +
-        ', now there ' +
-        this.numActivePresets +
-        ' active presets'
-    );
   };
 
   // Shuffle selected prompts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -138,6 +136,10 @@ export class AppComponent {
   ngOnInit() {
     console.log('Starting AppComponent');
     document.addEventListener('keydown', this.handleKeyDown);
+
+    document
+      .getElementById('burger-icon-id')
+      ?.addEventListener('mousedown', this.handleMenuToggle, true);
 
     for (const preset in this.presets) {
       this.activePresets.set(preset, false);
