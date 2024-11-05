@@ -1,11 +1,15 @@
-<div class="burger-box" (click)="handleMenuToggle()">
+<!-- <div class="burger-box" id="burger-menu">
   <div class="burger-line"></div>
   <div class="burger-line"></div>
   <div class="burger-line"></div>
+</div> -->
+
+<div class="burger-icon">
+  <img id="burger-icon-id" src="/assets/burger-icon.png" />
 </div>
 
 @if (menuOpen) {
-<div class="menu-modal-background">
+<div class="menu-modal-background" id="menu-overlay-id">
   <div class="menu-modal-container">
     <h1>Flag Quiz</h1>
     <h4>Select One or More Presets to Play.</h4>
