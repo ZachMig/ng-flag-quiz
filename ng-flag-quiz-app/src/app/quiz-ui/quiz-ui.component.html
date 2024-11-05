@@ -1,0 +1,31 @@
+<div class="quiz-container">
+  <div class="prompt-container">
+    @if (inbetweenRounds === true) {
+    <span class="answer">{{ onSelectResponse }}</span>
+    }
+    <img
+      height="600px"
+      width="600px"
+      [src]="'/assets/flags/' + countryCodeToShow + '.svg'"
+    />
+    @if (inbetweenRounds === true) { }
+    <span class="answer">
+      {{ answerStr }}
+    </span>
+  </div>
+  <div class="options-container">
+    <ul>
+      @for(option of options; track $index) {
+
+      <li
+        class="option"
+        (click)="handleOptionClick(option)"
+        (mouseover)="handleMouseOver(option)"
+        (mouseleave)="handleMouseLeave()"
+      >
+        {{ countryMap.get(option) }}
+      </li>
+      }
+    </ul>
+  </div>
+</div>
